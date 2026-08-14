@@ -177,19 +177,9 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
         'employed': hist_employed,
         'education': e,
     }
- 
- 
-def gini(x):
-    """
-    Compute the Gini coefficient of a 1-D array of incomes x.
- 
-    Uses the mean absolute difference formula:
-        G = (sum over all pairs |x_i - x_j|) / (2 * N^2 * mean(x))
-    which is equivalent to the standard Lorenz-curve definition but
-    simpler to implement and verify directly.
-    """
-    x = np.sort(np.asarray(x, dtype=float))  # sort incomes ascending
-    N = len(x)
-    index = np.arange(1, N + 1)              # ranks 1, 2, ..., N
-    # Standard rank-based formula for the Gini coefficient of sorted data
-    return (2 * np.sum(index * x) - (N + 1) * np.sum(x)) / (N * np.sum(x))
+#Check that the mean is one for the lognormal shock psi
+rng_check = np.random.default_rng(seed)
+psi_check = rng_check.lognormal(-0.5 * sigma_psi**2, sigma_psi, size=1_000_000)
+
+print(f'Mean of psi: {psi_check.mean():.4f}')  # should be equal or close to 1.0000
+
