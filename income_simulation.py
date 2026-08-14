@@ -177,9 +177,3 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
         'employed': hist_employed,
         'education': e,
     }
-#Check that the mean is one for the lognormal shock psi
-rng_check = np.random.default_rng(seed)
-psi_check = rng_check.lognormal(-0.5 * sigma_psi**2, sigma_psi, size=1_000_000)
-
-print(f'Mean of psi: {psi_check.mean():.4f}')  # should be equal or close to 1.0000
-
