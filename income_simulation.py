@@ -79,10 +79,9 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
         last_wage[emp_mask] = h[emp_mask]
         ever_employed[emp_mask] = True
  
-        # --- Evolve human capital and employment status for next period ---
+        #human capital and employment status for next period
         if t < T - 1:
-            # Draw this year's shock: mean-one lognormal, i.e.
-            # log(psi) ~ Normal(-0.5*sigma_psi^2, sigma_psi^2), so E[psi] = 1
+            #shock this year
             psi = rng.lognormal(-0.5 * sigma_psi**2, sigma_psi, size=N)
  
             #Modelling human capital employed = growth, unemployed = depreciates, incl shock in model
@@ -93,7 +92,7 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
             #keep student capital NaN until they enter the labor market
             h[labor] = h_next[labor]
  
-            # independent random draws for employment
+            #random draws for employment
             finds_job = (~employed) & (rng.random(N) < lam)
             loses_job = employed & (rng.random(N) < sigma_sep)
  
