@@ -1,22 +1,3 @@
-"""
-income_simulation.py
- 
-Simulates a life-cycle model of education, employment, and income for a
-cohort of individuals followed from age 18 to retirement at 65.
- 
-Model summary
--------------
-1. Education: each individual draws an education type (short/medium/long)
-   at age 18, spends S_e years in school receiving a student grant, then
-   enters the labor market as unemployed.
-2. Employment: a two-state persistent Markov chain (unemployed <-> employed)
-   governs labor market status each year.
-3. Human capital: grows while employed, depreciates while unemployed,
-   subject to a mean-one lognormal shock each year.
-4. Income: student grant while in school; human capital while employed;
-   a replacement rate times last job's income while unemployed (or a
-   floor for those who have never held a job).
-"""
  
 import numpy as np
  
@@ -24,65 +5,22 @@ import numpy as np
 def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
                                   lam, sigma_sep, y_su, rho, y_floor,
                                   age_min, age_max, seed):
-    """
-    Simulate the life-cycle income model.
- 
-    Parameters
-    ----------
-    N : int
-        Number of individuals to simulate.
-    p_e : tuple of float
-        Probabilities of drawing (short, medium, long) education.
-    s_e : tuple of float
-        Years of schooling for (short, medium, long) education.
-    h_e0 : tuple of float
-        Initial human capital when entering the labor market, by education.
-    delta_e : tuple of float
-        Human capital growth rate while employed, by education.
-    delta : float
-        Human capital depreciation rate while unemployed.
-    sigma_psi : float
-        Standard deviation of the underlying normal for the lognormal shock.
-    lam : float
-        Probability an unemployed person finds a job (job-finding rate).
-    sigma_sep : float
-        Probability an employed person loses their job (separation rate).
-    y_su : float
-        Student grant received while in education.
-    rho : float
-        Replacement rate: unemployment income as a share of last job's income.
-    y_floor : float
-        Minimum income floor for those who have never held a job.
-    age_min, age_max : int
-        First and last age simulated (inclusive), e.g. 18 and 65.
-    seed : int
-        Seed for the random number generator, for reproducibility.
- 
-    Returns
-    -------
-    dict with keys:
-        'ages'      : array of ages simulated, shape (T,)
-        'income'    : income for each individual at each age, shape (N, T)
-        'employed'  : employment status (bool) at each age, shape (N, T)
-        'education' : education type (0/1/2) for each individual, shape (N,)
-    """
-    # Set up a reproducible random number generator (per the assignment hint)
+
+    # random number generator
     rng = np.random.default_rng(seed)
  
-    # Build the array of ages simulated, e.g. 18, 19, ..., 65
+    #ages array
     ages = np.arange(age_min, age_max + 1)
     T = len(ages)  # number of periods (years) simulated
  
-    # --- Draw each individual's education type at age 18 ---
+    #draw education types for individuals with prob p_e
     # e is 0 = short, 1 = medium, 2 = long education, drawn with probabilities p_e
     e = rng.choice(3, size=N, p=p_e)
  
-    # Map each individual's education type to their personal parameters.
-    # np.array(s_e)[e] looks up, for every individual, the value of s_e
-    # corresponding to their own education draw.
-    Se = np.array(s_e)[e]          # years of schooling for this individual
-    h0 = np.array(h_e0)[e]         # initial human capital once they start working
-    de = np.array(delta_e)[e]      # human capital growth rate while employed
+    # np.array(s_e)[e] looks up the value of s_e (connects individuals to their characteristics/variables)
+    Se = np.array(s_e)[e]          # years of schooling
+    h0 = np.array(h_e0)[e]         # initial human capital entering labor market
+    de = np.array(delta_e)[e]      # employed human capital growth rate
  
     # --- State variables, updated as we step through time ---
     h = np.full(N, np.nan)             # human capital; NaN while still in school
@@ -152,22 +90,19 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
             # log(psi) ~ Normal(-0.5*sigma_psi^2, sigma_psi^2), so E[psi] = 1
             psi = rng.lognormal(-0.5 * sigma_psi**2, sigma_psi, size=N)
  
-            # Human capital grows if employed, depreciates if unemployed,
-            # both cases scaled by this year's random shock
+            #Modelling human capital employed = growth, unemployed = depreciates, incl shock in model
             h_grow = h * (1 + de) * psi
             h_shrink = h * (1 - delta) * psi
             h_next = np.where(employed, h_grow, h_shrink)
  
-            # Only update human capital for those already in the labor market
-            # (students' human capital stays undefined/NaN until they start working)
+            #keep student capital NaN until they enter the labor market
             h[labor] = h_next[labor]
  
-            # Draw whether unemployed people find a job, and whether
-            # employed people lose theirs, using independent random draws
+            # independent random draws for employment
             finds_job = (~employed) & (rng.random(N) < lam)
             loses_job = employed & (rng.random(N) < sigma_sep)
  
-            # Apply the transitions to get next period's employment status
+            #next period employment status
             employed = np.where(finds_job, True, employed)
             employed = np.where(loses_job, False, employed)
  
@@ -177,3 +112,8 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
         'employed': hist_employed,
         'education': e,
     }
+#Check that the lognormal shock has mean 1
+rng_check = np.random.default_rng(seed)
+psi_check = rng_check.lognormal(-0.5 * sigma_psi**2, sigma_psi, size=1_000_000)
+
+print(f'Mean of psi: {psi_check.mean():.4f}')  # should be very close to 1.00
