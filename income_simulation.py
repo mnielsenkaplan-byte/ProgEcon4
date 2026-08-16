@@ -40,47 +40,43 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
         # age_min have not yet reached their required schooling length Se
         in_school = (age - age_min) < Se
  
-        # True for individuals entering the labor market for the first time
-        # this year, i.e. this is exactly the year school ends
+        # True for individuals entering the labor market for the first time this year, i.e. this is exactly the year school ends
         entering = (age - age_min) == Se
  
-        # Individuals entering the labor market start with their
-        # education-specific human capital and begin as unemployed
+        #Individuals entering the labor market start with their education human capital and begin as unemployed
         h[entering] = h0[entering]
         employed[entering] = False
  
-        # Everyone not in school is in the labor market this period
+        #Indviduals are either in school or labor market
         labor = ~in_school
  
-        # --- Compute this period's income for everyone ---
+        #this years income
         income_t = np.empty(N)
  
         # Those in school receive the student grant
         income_t[in_school] = y_su
  
-        # Among labor market participants, split by employment status
+        #split labor market by employment status
         emp_mask = labor & employed
         unemp_mask = labor & ~employed
  
-        # Employed individuals earn income equal to their human capital
+        #human capital = wages for employed
         income_t[emp_mask] = h[emp_mask]
  
-        # Unemployed individuals who have held a job before earn a fraction
-        # (the replacement rate) of what they earned in their last job
+        # Unemployedment benefits are a fraction rho of last wage
         had_job_before = unemp_mask & ever_employed
         income_t[had_job_before] = rho * last_wage[had_job_before]
  
-        # Unemployed individuals who have never held a job get the income floor
+        #Unemployed individuals who have never held a job get the income floor
         never_had_job = unemp_mask & ~ever_employed
         income_t[never_had_job] = y_floor
  
-        # Store this period's results before moving on
+        #Create an array of results ot be returned
         hist_income[:, t] = income_t
         hist_h[:, t] = h
         hist_employed[:, t] = emp_mask
  
-        # Update "last job income" and "ever employed" for anyone employed now,
-        # so that if they lose their job later, benefits are based on this wage
+        #Base benefits on last known income
         last_wage[emp_mask] = h[emp_mask]
         ever_employed[emp_mask] = True
  
