@@ -6,7 +6,7 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
                                   lam, sigma_sep, y_su, rho, y_floor,
                                   age_min, age_max, seed):
 
-    # random number generator
+    #random number generator
     rng = np.random.default_rng(seed)
  
     #ages array
@@ -17,30 +17,29 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
     # e is 0 = short, 1 = medium, 2 = long education, drawn with probabilities p_e
     e = rng.choice(3, size=N, p=p_e)
  
-    # np.array(s_e)[e] looks up the value of s_e (connects individuals to their characteristics/variables)
+    #np.array(s_e)[e] looks up the value of s_e (connects individuals to their characteristics/variables)
     Se = np.array(s_e)[e]          # years of schooling
     h0 = np.array(h_e0)[e]         # initial human capital entering labor market
     de = np.array(delta_e)[e]      # employed human capital growth rate
  
-    # --- State variables, updated as we step through time ---
-    h = np.full(N, np.nan)             # human capital; NaN while still in school
-    employed = np.zeros(N, dtype=bool) # current employment status
-    ever_employed = np.zeros(N, dtype=bool)  # has this person ever held a job?
-    last_wage = np.zeros(N)            # income earned in their most recent job
+    #variables
+    h = np.full(N, np.nan)             #human capital; NaN while still in school
+    employed = np.zeros(N, dtype=bool) #current employment status
+    ever_employed = np.zeros(N, dtype=bool)  #held a job, ever?
+    last_wage = np.zeros(N)            #most recent income
  
-    # --- Arrays to store the full simulated history for later analysis ---
+    #simulate and store history in arrays
     hist_income = np.empty((N, T))
     hist_h = np.full((N, T), np.nan)
     hist_employed = np.zeros((N, T), dtype=bool)
  
-    # --- Main simulation loop over time ---
+    #Simulation loop ##should we vectorize?
     for t, age in enumerate(ages):
  
-        # True for individuals still in school this year: their years since
-        # age_min have not yet reached their required schooling length Se
+        #in school means age is less than the years of schooling plus the minimum age
         in_school = (age - age_min) < Se
  
-        # True for individuals entering the labor market for the first time this year, i.e. this is exactly the year school ends
+        #the age of individuals entering the labor market is = to Se + age_min
         entering = (age - age_min) == Se
  
         #Individuals entering the labor market start with their education human capital and begin as unemployed
@@ -63,7 +62,7 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
         #human capital = wages for employed
         income_t[emp_mask] = h[emp_mask]
  
-        # Unemployedment benefits are a fraction rho of last wage
+        #Unemployedment benefits are a fraction rho of last wage
         had_job_before = unemp_mask & ever_employed
         income_t[had_job_before] = rho * last_wage[had_job_before]
  
