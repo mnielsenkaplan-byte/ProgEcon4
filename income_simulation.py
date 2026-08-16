@@ -1,4 +1,5 @@
  
+from matplotlib.pylab import seed
 import numpy as np
  
  
@@ -99,6 +100,11 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
             #next period employment status
             employed = np.where(finds_job, True, employed)
             employed = np.where(loses_job, False, employed)
+
+    #Check that the lognormal shock has mean 1
+    rng_check = np.random.default_rng(seed)
+    psi_check = rng_check.lognormal(-0.5 * sigma_psi**2, sigma_psi, size=1_000_000)
+    print(f'Mean of psi: {psi_check.mean():.4f}')  # should be very close to 1.00
  
     return {
         'ages': ages,
@@ -106,8 +112,3 @@ def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
         'employed': hist_employed,
         'education': e,
     }
-#Check that the lognormal shock has mean 1
-rng_check = np.random.default_rng(seed)
-psi_check = rng_check.lognormal(-0.5 * sigma_psi**2, sigma_psi, size=1_000_000)
-
-print(f'Mean of psi: {psi_check.mean():.4f}')  # should be very close to 1.00
