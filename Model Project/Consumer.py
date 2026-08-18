@@ -195,7 +195,9 @@ class ConsumerClass:
 
         """
 
-        pass
+        x1, x2, x3 = self.quantities(s1,w)
+
+        u = ConsumerClass.utility(x1, x2, x3)
 
         return u
 
