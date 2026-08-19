@@ -37,7 +37,7 @@ class ConsumerClass:
 
         par = self.par = SimpleNamespace()
         sol = self.sol = SimpleNamespace()
-<
+
         # a. preference weights
         par.alpha = 0.60 # weight on food
         par.beta = 0.50 # weight on the bus
