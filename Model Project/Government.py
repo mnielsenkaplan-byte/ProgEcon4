@@ -127,8 +127,12 @@ class GovernmentClass(ConsumerClass):
         #    .quantities() takes the nested shares (s1,w) from the solution
         if opt is None: opt = self.solve(do_print=False)
 
-        pass
+        #R = par.T + par.tau1*par.p1*par.x1_star + par.tau2*par.p2*par.x2_star + par.tau3*par.p3*par.x3_star #Does not know if there is a variable called x3_star. Maybe this one should be changed.
 
+        def R(tau1, tau2, tau3, p1, p2, p3, x1_star, x2_star, x3_star):
+            R = par.T + par.tau1*par.p1*par.x1_star + par.tau2*par.p2*par.x2_star + par.tau3*par.p3*par.x3_star #Does not know if there is a variable called x3_star. Maybe this one should be changed.
+            return R
+        
         # b. the lump-sum tax, plus the product tax on each good
 
         return R
@@ -148,6 +152,32 @@ class GovernmentClass(ConsumerClass):
         """
 
         pass
+
+        par=self.par
+        
+        # food = 
+        # bus =
+        # train =
+        # bus_and_train =
+        # all_goods = 
+        
+
+        for i in range(3):
+            R = ()
+            if i == 0:
+                i = i +1
+            elif i == 1:
+                R_food = GovernmentClass.tax_revenue(par.tau1, 0.0, 0.0, par.p1, 0.0 ,0.0, par.x1_star, 0.0, 0.0)
+                R = R + (R_food,)
+                i == i +1
+            elif i == 2:
+                R_bus = GovernmentClass.tax_revenue(0.0, par.tau2, 0.0, 0.0 ,par.p2,0.0, 0.0, par.x2_star, 0.0)
+                R = R + (R_bus,)
+                i == i +1
+            else:
+                R_train = GovernmentClass.tax_revenue(0.0, 0.0, par.tau3, 0.0 ,0.0, par.p3, 0.0,  0.0, par.x3_star)
+                R = R + (R_train,)
+                i == i +1
 
         return R,u
 
