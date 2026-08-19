@@ -37,7 +37,7 @@ class ConsumerClass:
 
         par = self.par = SimpleNamespace()
         sol = self.sol = SimpleNamespace()
-
+<
         # a. preference weights
         par.alpha = 0.60 # weight on food
         par.beta = 0.50 # weight on the bus
@@ -244,7 +244,7 @@ class ConsumerClass:
 
         # a. the two grids
         
-        np.meshgrid(par.s1_vec,par.w_vec,indexing="i j")
+        np.meshgrid(s1_vec,w_vec,indexing="i j")
         np.argmax(np.unravel_index)
 
         # b. utility in every grid point
