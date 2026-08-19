@@ -134,9 +134,9 @@ class ConsumerClass:
         par = self.par
 
         #x_B = (par.beta*x2**par.rho_B+(1-par.beta)*x3**par.rho_B)**(1/par.rho_B)
-        x_B=ConsumerClass.ces(x2,x3,par.beta,par.sigma_B)
+        x_B=self.ces(x2,x3,par.beta,par.sigma_B)
 
-        u = ConsumerClass.ces(x1,x_B,par.alpha,par.sigma_A)
+        u = self.ces(x1,x_B,par.alpha,par.sigma_A)
         #u = (par.alpha*x1**par.rho_A + (1-par.alpha)*x_B**par.rho_A)**(1/par.rho_A)
 
         return u
@@ -197,7 +197,7 @@ class ConsumerClass:
 
         x1, x2, x3 = self.quantities(s1,w)
 
-        u = ConsumerClass.utility(x1, x2, x3)
+        u = self.utility(x1, x2, x3)
 
         return u
 
@@ -249,31 +249,50 @@ class ConsumerClass:
 
         s1_grid, w_grid= np.meshgrid(s1_vec,w_vec,indexing="ij")
 
-        solve_grid= ConsumerClass.objective((s1_grid, w_grid))
-
-        np.argmax
-        np.unravel_index
-
-        Report(s1, s2, s3, w)
 
         # b. utility in every grid point
         
-        ax=fig.add_subbplot(1, 2, 1, projection= "3d")
-        ax.contourf
+        u_grid= self.value_of_choice(s1_grid, w_grid)
+
 
         # c. the best point
-        N1, N2, N3, N4 = 50, 100, 500, 1000
 
-        
-        report("grid search (2D)", )
-
-       
+        index_max = np.argmax(u_grid)
+        i, j=np.unravel_index(index_max, u_grid.shape)
 
         # d. results
         # opt.s1, opt.w, opt.s2, opt.s3, opt.u
         # opt.s1_grid, opt.w_grid, opt.u_grid (needed for the figures)
 
+        opt.s1 = s1_grid[i,j]
+        opt.w = w_grid[i,j]
+        opt.s2 = (1-opt.s1)*opt.w
+        opt.s3 = (1-opt.s1)*(1-opt.w)
+        opt.u = u_grid[i,j]
+
+        opt.s1_grid = s1_grid
+        opt.w_grid = w_grid
+        opt.u_grid = u_grid
+
+        if do_print:
+            print(f"s1={opt.s1:.4f}")
+            print(f"s2={opt.s2:.4f}")
+            print(f"s3={opt.s3:.4f}")
+            print(f"w={opt.w:.4f}")
+            print(f"u={opt.u:.4f}")
+
         return opt
+
+    
+        # Plot
+            #ax=fig.add_subbplot(1, 2, 1, projection= "3d")
+            #ax.contourf
+
+        # Try N=50,100,500,1000
+
+            # N1, N2, N3, N4 = 50, 100, 500, 1000
+
+        
 
 
     def solve(self,s0=None,do_print=True,**kwargs):
