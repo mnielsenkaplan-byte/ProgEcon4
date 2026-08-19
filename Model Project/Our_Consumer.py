@@ -323,7 +323,7 @@ class ConsumerClass:
         path = [s0.copy()]
 
         # c. minimize - pass before
-        -u=self.objective()
+        self.objective() = - self.utility(opt.s1*par.I/par.p1,opt.s2*par.I/par.p2,opt.s3*par.I/par.p3)
         optimize.minimize(self.objective,s0,method='L-BFGS-B', bounds=((0,1),(0,1)))
         
 
