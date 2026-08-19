@@ -244,7 +244,7 @@ class ConsumerClass:
 
         # a. the two grids
         
-        np.meshgrid(s1_vec,w_vec,indexing="i j")
+        np.meshgrid(par.s1_vec,par.w_vec,indexing="i j")
         np.argmax(np.unravel_index)
 
         # b. utility in every grid point
