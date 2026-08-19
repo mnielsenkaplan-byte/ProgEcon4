@@ -239,13 +239,19 @@ class ConsumerClass:
 
         """
 
-        par = self.par
+            par = self.par
         opt = SimpleNamespace()
 
         # a. the two grids
         
-        np.meshgrid(s1_vec,w_vec,indexing="i j")
-        np.argmax(np.unravel_index)
+        s1_vec = np.linspace(0,1,N)
+        w_vec = np.linspace(0,1,N)
+
+        s1_grid, w_grid= np.meshgrid(s1_vec,w_vec,indexing="ij")
+
+        u_grid=find_best_choice()
+
+        Report(s1,w)
 
         # b. utility in every grid point
         
@@ -254,14 +260,19 @@ class ConsumerClass:
 
         # c. the best point
         N1, N2, N3, N4 = 50, 100, 500, 1000
-        grid = find_best_choice(u, )
-        report("grid searchg (2D)", )
+
+        grid_best = find_best_choice(u,s1,w )
+        np.argmax(np.unravel_index)
+        report("grid search (2D)", )
+
+       
 
         # d. results
         # opt.s1, opt.w, opt.s2, opt.s3, opt.u
         # opt.s1_grid, opt.w_grid, opt.u_grid (needed for the figures)
 
         return opt
+
 
     def solve(self,s0=None,do_print=True,**kwargs):
         """ solve with L-BFGS-B
