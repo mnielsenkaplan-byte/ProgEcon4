@@ -4,7 +4,7 @@ import numpy as np
 
 from scipy import optimize
 
-from Consumer import ConsumerClass
+from Our_Consumer import ConsumerClass
 
 class GovernmentClass(ConsumerClass):
     """ a government raising revenue from the consumer in Consumer.py
@@ -70,7 +70,7 @@ class GovernmentClass(ConsumerClass):
 
         The price the consumer pays for good j is (1+tau_j) times the price the
         seller receives, and income is reduced by the lump-sum tax. After this
-        call every method inherited from ConsumerClass -- .solve(), .shares(),
+        call, every method inherited from ConsumerClass -- .solve(), .shares(),
         .value_of_choice(), .solve_grid() -- automatically refers to the
         situation *with* taxes.
 
@@ -157,7 +157,6 @@ class GovernmentClass(ConsumerClass):
 
         """
 
-        pass
 
         par=self.par
 
@@ -173,8 +172,9 @@ class GovernmentClass(ConsumerClass):
         elif goods is (1,2,3):
             self.set_taxes(par.T,tau,tau,tau)
         R = self.tax_revenue()
-        
-        
+
+        #
+        u=self.solve()
 
         return R,u
 
