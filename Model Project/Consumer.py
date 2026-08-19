@@ -243,13 +243,19 @@ class ConsumerClass:
         opt = SimpleNamespace()
 
         # a. the two grids
-        pass
+        
+        np.meshgrid(s1_vec,w_vec,indexing="i j")
+        np.argmax(np.unravel_index)
 
         # b. utility in every grid point
-        pass
+        
+        ax=fig.add_subbplot(1, 2, 1, projection= "3d")
+        ax.contourf
 
         # c. the best point
-        pass
+        N1, N2, N3, N4 = 50, 100, 500, 1000
+        grid = find_best_choice(u, )
+        report("grid searchg (2D)", )
 
         # d. results
         # opt.s1, opt.w, opt.s2, opt.s3, opt.u
