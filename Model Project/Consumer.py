@@ -239,7 +239,7 @@ class ConsumerClass:
 
         """
 
-            par = self.par
+        par = self.par
         opt = SimpleNamespace()
 
         # a. the two grids
@@ -249,9 +249,12 @@ class ConsumerClass:
 
         s1_grid, w_grid= np.meshgrid(s1_vec,w_vec,indexing="ij")
 
-        u_grid=find_best_choice()
+        solve_grid= ConsumerClass.objective((s1_grid, w_grid))
 
-        Report(s1,w)
+        np.argmax
+        np.unravel_index
+
+        Report(s1, s2, s3, w)
 
         # b. utility in every grid point
         
@@ -261,8 +264,7 @@ class ConsumerClass:
         # c. the best point
         N1, N2, N3, N4 = 50, 100, 500, 1000
 
-        grid_best = find_best_choice(u,s1,w )
-        np.argmax(np.unravel_index)
+        
         report("grid search (2D)", )
 
        
