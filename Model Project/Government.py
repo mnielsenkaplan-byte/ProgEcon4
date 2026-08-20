@@ -174,9 +174,9 @@ class GovernmentClass(ConsumerClass):
         R = self.tax_revenue()
 
         #
-        u=self.solve(par.p1*par.x1/par.I,par.w)
+        #u=self.solve(par.p1*par.x1/par.I,par.w)
 
-        return R,u
+        return R#,u
 
     def revenue_and_utility_lump_sum(self,T):
         """ the same, for a lump-sum tax of T
