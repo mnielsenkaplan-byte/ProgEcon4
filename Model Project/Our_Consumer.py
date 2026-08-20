@@ -345,9 +345,10 @@ class ConsumerClass:
    
         # b. record the path with a callback
         path = [s0.copy()]
+        callback=lambda sk: path.append(sk.copy())
 
         # c. minimize - pass before
-        res= optimize.minimize(self.objective,s0,method='L-BFGS-B', bounds=((0,1),(0,1)))
+        res= optimize.minimize(self.objective,s0,method='L-BFGS-B', bounds=((0,1),(0,1)),callback=callback)
         
         # d. results
         s1 = res.x[0]
@@ -355,13 +356,13 @@ class ConsumerClass:
         s2 = (1-s1)*w
         s3 = (1-s1)*(1-w)
         u = self.utility(s1*par.I/par.p1, s2*par.I/par.p2, s3*par.I/par.p3)
-        path = (s1,w) #I am a bit confused what to write to path
+        #path = (s1,w) #I am a bit confused what to write to path
         opt.s1=s1
         opt.w=w
         opt.s2=s2
         opt.s3=s3
         opt.u = u
-        opt.path = path
+        opt.path = np.array(path)
         opt.res = res
 
         return opt
