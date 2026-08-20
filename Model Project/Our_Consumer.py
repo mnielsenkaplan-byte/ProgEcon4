@@ -344,11 +344,12 @@ class ConsumerClass:
         path = [s0.copy()]
 
         # c. minimize - pass before
-        res=optimize.minimize(self.objective,s0,method='L-BFGS-B', bounds=((0,1),(0,1)), callback=lambda x: path.append(x.copy()),**kwargs)
+        res= optimize.minimize(self.objective,s0,method='L-BFGS-B', bounds=((0,1),(0,1)))
         #report('scipy: minimize_scalar (bounded)',res_bounded.x,(I-p1*res_bounded.x)/p2,nfev=res_bounded.nfev)
-        
-        # d. results
-        opt.s1=res.x[0]
-        # opt.w, opt.s2, opt.s3, opt.u, opt.path, opt.res
 
-        return opt
+        #, callback=lambda x: path.append(x.copy()),**kwargs
+        s1 = res[0]
+        # d. results
+        # opt.s1, opt.w, opt.s2, opt.s3, opt.u, opt.path, opt.res
+
+        return s1
