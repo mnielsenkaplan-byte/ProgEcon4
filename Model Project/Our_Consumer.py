@@ -7,7 +7,7 @@ from scipy import optimize
 
 class ConsumerClass:
     """ a consumer with nested CES preferences over three goods
-
+    
     Good 1 is food. Goods 2 and 3 are bus trips and train trips, and they sit
     together in a nest.
 
@@ -335,23 +335,33 @@ class ConsumerClass:
 
         """
 
+
         par = self.par
         opt = SimpleNamespace()
 
         # a. starting guess
         if s0 is None: s0 = np.array([0.5,0.5])
         s0 = np.asarray(s0,dtype=float)
-
+   
         # b. record the path with a callback
         path = [s0.copy()]
 
         # c. minimize - pass before
         res= optimize.minimize(self.objective,s0,method='L-BFGS-B', bounds=((0,1),(0,1)))
-        #report('scipy: minimize_scalar (bounded)',res_bounded.x,(I-p1*res_bounded.x)/p2,nfev=res_bounded.nfev)
-
-        #, callback=lambda x: path.append(x.copy()),**kwargs
-        s1 = res[0]
+        
         # d. results
-        # opt.s1, opt.w, opt.s2, opt.s3, opt.u, opt.path, opt.res
+        s1 = res.x[0]
+        w = res.x[1]
+        s2 = (1-s1)*w
+        s3 = (1-s1)*(1-w)
+        u = self.utility(s1*par.I/par.p1, s2*par.I/par.p2, s3*par.I/par.p3)
+        path = (s1,w) #I am a bit confused what to write to path
+        opt.s1=s1
+        opt.w=w
+        opt.s2=s2
+        opt.s3=s3
+        opt.u = u
+        opt.path = path
+        opt.res = res
 
-        return s1
+        return opt
