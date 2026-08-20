@@ -287,7 +287,7 @@ class ConsumerClass:
     
     # Plot
 
-    def plot_grid(self,opt)
+    def plot_grid(self,opt):
         import matplotlib.pyplot as plt
         from matplotlib import cm
 
@@ -304,8 +304,9 @@ class ConsumerClass:
 
         ax.zaxis.labelpad= 0.1
 
-        ax=fig.add_subplot(2, 2, 1)
+        ax=fig.add_subplot(1, 2, 2)
         ax.contourf(opt.s1_grid,opt.w_grid,opt.u_grid,cmap=cm.jet)
+        ax.scatter(opt.s1,opt.w)
         ax.set_xlabel("$s_1$")
         ax.set_ylabel("$w$")
         ax.set_title("Utility contour plot")
@@ -313,11 +314,6 @@ class ConsumerClass:
         fig.tight_layout()
 
         return fig
-
-
-    # Try N=50,100,500,1000
-
-    # N1, N2, N3, N4 = 50, 100, 500, 1000
 
         
     def solve(self,s0=None,do_print=True,**kwargs):
