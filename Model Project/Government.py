@@ -161,22 +161,22 @@ class GovernmentClass(ConsumerClass):
         par=self.par
 
 
-        if goods is (1,):
+        if goods == (1,):
             self.set_taxes(par.T,tau,0.0,0.0)
-        elif goods is (2,):
+        elif goods == (2,):
             self.set_taxes(par.T,0.0,tau,0.0)
-        elif goods is (3,):
+        elif goods == (3,):
             self.set_taxes(par.T,0.0,0.0,tau)
-        elif goods is (2,3):
+        elif goods == (2,3):
             self.set_taxes(par.T, 0.0, tau, tau)
-        elif goods is (1,2,3):
+        elif goods == (1,2,3):
             self.set_taxes(par.T,tau,tau,tau)
         R = self.tax_revenue()
 
         #
-        u=self.solve()
+        #u=self.solve(par.p1*par.x1/par.I,par.w)
 
-        return R,u
+        return R#,u
 
     def revenue_and_utility_lump_sum(self,T):
         """ the same, for a lump-sum tax of T
