@@ -292,9 +292,10 @@ class ConsumerClass:
         from matplotlib import cm
 
 
-        fig=plt.figure()
+        fig = plt.figure(figsize=(12,6))
         ax=fig.add_subplot(1, 2, 1, projection= "3d")
-        ax.plot_surface(opt.s1_grid,opt.w_grid,opt.u_grid,cmap=cm.jet)
+        h = ax.plot_surface(opt.s1_grid,opt.w_grid,opt.u_grid,cmap=cm.viridis)
+        fig.colorbar(h,ax=ax,location="left")
         ax.scatter(opt.s1,opt.w,opt.u)
 
         ax.set_title("Utility over nested shares")
@@ -305,13 +306,14 @@ class ConsumerClass:
         ax.zaxis.labelpad= 0.1
 
         ax=fig.add_subplot(1, 2, 2)
-        ax.contourf(opt.s1_grid,opt.w_grid,opt.u_grid,cmap=cm.jet)
+        ax.contourf(opt.s1_grid,opt.w_grid,opt.u_grid,cmap=cm.viridis)
         ax.scatter(opt.s1,opt.w)
         ax.set_xlabel("$s_1$")
         ax.set_ylabel("$w$")
         ax.set_title("Utility contour plot")
 
-        fig.tight_layout()
+
+        fig.tight_layout(pad=3.0)
 
         return fig
 
