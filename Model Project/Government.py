@@ -225,9 +225,17 @@ class GovernmentClass(ConsumerClass):
 
         """
 
-        pass
+        tau_vec = np.linspace(0, tau_max, N)
+        revenue_vec = np.empty(N)
 
-        return tau,R
+        for i, tau in enumerate(tau_vec):
+            revenue_vec[i], _ = self.revenue_and_utility(tau, goods)
+
+        i = np.argmax(revenue_vec)
+        tau = tau_vec[i]
+        revenue = revenue_vec[i]
+
+        return tau, revenue
 
     def find_tax_rate(self,R_target,goods=(2,),bracket=(1e-10,1.0)):
         """ the tax rate on goods that raises exactly R_target
@@ -251,6 +259,18 @@ class GovernmentClass(ConsumerClass):
 
         """
 
-        pass
+        def f(tau):
+            R, u = self.revenue_and_utility(tau, goods=goods)
+            return R - R_target
+
+        try:
+            result = optimize.root_scalar(
+                f,
+                bracket=bracket,
+                method='brentq'
+            )
+            tau = result.root
+        except ValueError:
+            tau = np.nan
 
         return tau
