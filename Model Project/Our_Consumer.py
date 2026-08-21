@@ -280,7 +280,7 @@ class ConsumerClass:
             print(f"s2={opt.s2:.4f}")
             print(f"s3={opt.s3:.4f}")
             print(f"w={opt.w:.4f}")
-            print(f"u={opt.u:.5f}")
+            print(f"u={opt.u:.4f}")
 
         return opt
 
