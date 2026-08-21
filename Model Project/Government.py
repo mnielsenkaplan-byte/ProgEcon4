@@ -192,8 +192,11 @@ class GovernmentClass(ConsumerClass):
             (tuple): (revenue, utility)
 
         """
+        self.set_taxes(T=T, tau1=0.0, tau2=0.0, tau3=0.0)
+        opt = self.solve(do_print=False)
 
-        pass
+        R = T
+        u = opt.u
 
         return R,u
 
