@@ -280,7 +280,7 @@ class ConsumerClass:
             print(f"s2={opt.s2:.4f}")
             print(f"s3={opt.s3:.4f}")
             print(f"w={opt.w:.4f}")
-            print(f"u={opt.u:.4f}")
+            print(f"u={opt.u:.5f}")
 
         return opt
 
@@ -340,7 +340,7 @@ class ConsumerClass:
         opt = SimpleNamespace()
 
         # a. starting guess
-        if s0 is None: s0 = np.array([0.5,0.5])
+        if s0 is None: s0 = (0.5,0.5)
         s0 = np.asarray(s0,dtype=float)
    
         # b. record the path with a callback
