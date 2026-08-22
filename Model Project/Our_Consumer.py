@@ -348,7 +348,7 @@ class ConsumerClass:
         callback=lambda sk: path.append(sk.copy())
 
         # c. minimize - pass before
-        res= optimize.minimize(self.objective,s0,method='L-BFGS-B', bounds=((0,1),(0,1)),callback=callback)
+        res= optimize.minimize(self.objective,s0,method='L-BFGS-B', bounds=((0,1),(0,1)),callback=callback, **kwargs)
         
         # d. results
         s1 = res.x[0]
