@@ -1,5 +1,32 @@
 # ProgEcon4
 Group members: Melissa, Mathilde, Emma
-heyyyy
-https://prod.liveshare.vsengsaas.visualstudio.com/join?3F53764A85EEDA2CE903148C906833C28FA6
-test
+Municipality correlation
+
+The assignment asks for the correlation between the Gini coefficient and the Top 10% income share across municipalities. Instead, the submission calculates correlations of yearly changes within each municipality and then averages them.
+
+Hint: Check whether the assignment asks for correlation across municipalities in a given year, rather than correlations within municipalities over time.
+
+ 
+ 
+
+Municipality change rankings
+
+The report identifies municipalities with the largest changes in inequality, but does not investigate whether these changes are driven by outliers or unusual single-year observations.
+
+Hint: Before interpreting the largest increases, inspect the underlying time series and check for outliers.
+
+ 
+
+Mechanism comparison
+
+The decomposition section runs several experiments, but the results are spread across separate outputs and figures. This makes it difficult to clearly compare which mechanism has the largest effect on inequality.
+
+Hint: Put all experiments into a single summary table to make it easier to compare which mechanisms matter most.
+
+ 
+
+Extension
+
+The extension mainly relies on visual comparisons of graphs. The report does not clearly quantify how much disability risk changes inequality.
+
+Hint: Quantify how much the disability risk changes the Gini coefficient rather than relying mainly on visual comparisons.
