@@ -1,14 +1,5 @@
 # ProgEcon4
 Group members: Melissa, Mathilde, Emma
-Municipality correlation
-
-The assignment asks for the correlation between the Gini coefficient and the Top 10% income share across municipalities. Instead, the submission calculates correlations of yearly changes within each municipality and then averages them.
-
-Hint: Check whether the assignment asks for correlation across municipalities in a given year, rather than correlations within municipalities over time.
-
- 
- 
-
 Municipality change rankings
 
 The report identifies municipalities with the largest changes in inequality, but does not investigate whether these changes are driven by outliers or unusual single-year observations.
