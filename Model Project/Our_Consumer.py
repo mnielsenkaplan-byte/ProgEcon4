@@ -340,7 +340,7 @@ class ConsumerClass:
         opt = SimpleNamespace()
 
         # a. starting guess
-        if s0 is None: s0 = np.array([0.5,0.5])
+        if s0 is None: s0 = (0.5,0.5)
         s0 = np.asarray(s0,dtype=float)
    
         # b. record the path with a callback
@@ -348,7 +348,7 @@ class ConsumerClass:
         callback=lambda sk: path.append(sk.copy())
 
         # c. minimize - pass before
-        res= optimize.minimize(self.objective,s0,method='L-BFGS-B', bounds=((0,1),(0,1)),callback=callback)
+        res= optimize.minimize(self.objective,s0,method='L-BFGS-B', bounds=((0,1),(0,1)),callback=callback, **kwargs)
         
         # d. results
         s1 = res.x[0]
