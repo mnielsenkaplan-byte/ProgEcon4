@@ -133,8 +133,8 @@ class GovernmentClass(ConsumerClass):
 
         # b. the lump-sum tax, plus the product tax on each good
 
-        R = par.T + par.tau1*par.p1_pre*x1_star + par.tau2*par.p2_pre*x2_star + par.tau3*par.p3_pre*x3_star
-        #R = par.T + par.tau1*par.p1*x1_star + par.tau2*par.p2*x2_star + par.tau3*par.p3*x3_star
+        R = par.T + par.tau1*par.p1_pre*x1_star + par.tau2*par.p2_pre*x2_star + par.tau3*par.p3_pre*x3_star #The new one
+        #R = par.T + par.tau1*par.p1*x1_star + par.tau2*par.p2*x2_star + par.tau3*par.p3*x3_star #The old one
 
         return R
 
