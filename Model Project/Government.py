@@ -139,7 +139,7 @@ class GovernmentClass(ConsumerClass):
         
         # b. the lump-sum tax, plus the product tax on each good
 
-        R = par.T + par.tau1*par.p1*x1_star + par.tau2*par.p2*x2_star + par.tau3*par.p3*x3_star
+        R = par.T + par.tau1*par.p1_pre*x1_star + par.tau2*par.p2_pre*x2_star + par.tau3*par.p3_pre*x3_star
 
         return R
 
@@ -237,7 +237,7 @@ class GovernmentClass(ConsumerClass):
 
         return tau, revenue
 
-    def find_tax_rate(self,R_target,goods=(2,),bracket=(1e-10,1.0)):
+    def find_tax_rate(self,R_target,goods=(2,),bracket=(1e-10,10.0)):
         """ the tax rate on goods that raises exactly R_target
 
         Careful: revenue is not always increasing in the tax rate. There can be
