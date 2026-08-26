@@ -4,7 +4,7 @@ import numpy as np
 
 from scipy import optimize
 
-from Our_Consumer import ConsumerClass
+from Consumer import ConsumerClass
 
 class GovernmentClass(ConsumerClass):
     """ a government raising revenue from the consumer in Consumer.py
@@ -168,9 +168,6 @@ class GovernmentClass(ConsumerClass):
         opt = self.solve(do_print=False)
         R = self.tax_revenue(opt)
         u = opt.u
-
-        #
-        #u=self.solve(par.p1*par.x1/par.I,par.w)
 
         return R,u
 
