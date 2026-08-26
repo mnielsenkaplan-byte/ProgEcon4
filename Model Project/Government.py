@@ -131,15 +131,10 @@ class GovernmentClass(ConsumerClass):
         x2_star = opt.s2*par.I/par.p2
         x3_star = opt.s3*par.I/par.p3
 
-        
-
-        # def R(tau1, tau2, tau3, p1, p2, p3, x1_star, x2_star, x3_star):
-        #     R = par.T + par.tau1*par.p1*par.x1_star + par.tau2*par.p2*par.x2_star + par.tau3*par.p3*par.x3_star #Does not know if there is a variable called x3_star. Maybe this one should be changed.
-        #     return R
-        
         # b. the lump-sum tax, plus the product tax on each good
 
         R = par.T + par.tau1*par.p1_pre*x1_star + par.tau2*par.p2_pre*x2_star + par.tau3*par.p3_pre*x3_star
+        #R = par.T + par.tau1*par.p1*x1_star + par.tau2*par.p2*x2_star + par.tau3*par.p3*x3_star
 
         return R
 
