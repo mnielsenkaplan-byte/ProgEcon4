@@ -2,10 +2,11 @@
  We have worked togheter on the tasks, the allocation is therefore based on who was the primary person responsible for each task
 
 # Data project
-Mathilde:
+Mathilde: 
 Melissa:
-Emma: 1.3.1, 1.4
-
+Emma:  1.4
+Mathilde & Emma: 1.2, 1.3
+All of us: 1.1
 
 # Model Project
 Mathilde: 4
