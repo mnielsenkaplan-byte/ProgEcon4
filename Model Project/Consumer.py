@@ -354,7 +354,6 @@ class ConsumerClass:
         s2 = (1-s1)*w
         s3 = (1-s1)*(1-w)
         u = self.utility(s1*par.I/par.p1, s2*par.I/par.p2, s3*par.I/par.p3)
-        #path = (s1,w) #I am a bit confused what to write to path
         opt.s1=s1
         opt.w=w
         opt.s2=s2
