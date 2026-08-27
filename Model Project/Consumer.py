@@ -134,11 +134,9 @@ class ConsumerClass:
 
         par = self.par
 
-        #x_B = (par.beta*x2**par.rho_B+(1-par.beta)*x3**par.rho_B)**(1/par.rho_B)
         x_B=self.ces(x2,x3,par.beta,par.sigma_B)
 
         u = self.ces(x1,x_B,par.alpha,par.sigma_A)
-        #u = (par.alpha*x1**par.rho_A + (1-par.alpha)*x_B**par.rho_A)**(1/par.rho_A)
 
         return u
 
