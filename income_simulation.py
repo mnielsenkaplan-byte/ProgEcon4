@@ -1,8 +1,7 @@
- 
 from matplotlib.pylab import seed
 import numpy as np
  
- 
+
 def simulate_income_distribution(N, p_e, s_e, h_e0, delta_e, delta, sigma_psi,
                                   lam, sigma_sep, y_su, rho, y_floor,
                                   age_min, age_max, seed):

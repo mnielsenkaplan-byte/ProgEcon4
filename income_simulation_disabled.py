@@ -1,4 +1,3 @@
- 
 import numpy as np
  
  
@@ -8,7 +7,6 @@ def simulate_income_distribution_disabled(N, p_e, s_e, h_e0, delta_e, delta, sig
     
     #random number generator
     rng = np.random.default_rng(seed)
-
 
     #ages array
     ages = np.arange(age_min, age_max + 1)
