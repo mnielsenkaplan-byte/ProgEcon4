@@ -3,7 +3,7 @@
 
 # Data project
 Mathilde: 1.3.2, 1.3.3, 2.4, 2.5
-Melissa: gini.py (2.1), 2.2, 2.3, summary tables/graphs/explanations to 2.4+2.5
+Melissa: gini.py (2.1), 2.2, 2.3, some summary tables/ some graphs/ some explanations to 2.4+2.5
 Emma: 1.3.1, 1.4, analysing graphs 1.3.3
 Mathilde & Emma: 1.2
 All of us: 1.1
